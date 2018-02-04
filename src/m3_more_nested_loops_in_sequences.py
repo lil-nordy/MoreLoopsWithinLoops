@@ -3,8 +3,8 @@ This project demonstrates NESTED LOOPS (i.e., loops within loops)
 in the context of SEQUENCES OF SUB-SEQUENCES.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Nathaniel Neil Nate Nordquist.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 
 def main():
@@ -17,7 +17,7 @@ def main():
 def run_test_largest_number():
     """ Tests the    largest_number    function. """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement this TEST function.
+    # DONE: 2. Implement this TEST function.
     #   It TESTS the  largest_number  function defined below.
     #   Include at least ** 1 ** ADDITIONAL test beyond those we wrote.
     # ------------------------------------------------------------------
@@ -44,7 +44,18 @@ def run_test_largest_number():
     print('Expected and actual are:', expected, answer)
 
     # TO DO 2 (continued): Add your ADDITIONAL test(s) here:
+    # Test 4:
+    test_sequence = [[1, 2, 3, 4], [1, 2, 3, 4, 5, 6, 7, 8], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [-3, 0, -4, 5, 7, 8, 1,
+                                                                                               9, -2, 3, 6, -6]]
+    expected = 9
+    answer = largest_number(test_sequence)
+    print('Expected and actual are:', expected, answer)
 
+    # Test 5:
+    test_sequence = [[], [1], [1, 2, 3], []]
+    expected = 3
+    answer = largest_number(test_sequence)
+    print('Expected and actual are:', expected, answer)
 
 def largest_number(seq_seq):
     """
@@ -72,10 +83,43 @@ def largest_number(seq_seq):
     where each subsequence contains only numbers.
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     # ------------------------------------------------------------------
+    # how I assign max_so_far to the first value that isn't empty? Dammit, assigning to zero doesn't work.
+    # https://docs.python.org/2/library/constants.html. Assigning to None is illegal?
 
+    # Failed Attempt #2:
+    # max_so_far = None
+    # if not seq_seq:
+    #     return None
+    # else:
+    #     for k in range(len(seq_seq)):
+    #         if not seq_seq[k]:
+    #             max_so_far = None
+    #         else:
+    #             for i in range(seq_seq[k]):
+    #                 if not seq_seq[i]:
+    #                     max_so_far = None
+    #                 else:
+    #                     max_so_far = seq_seq[k][i]
+    # return max_so_far
+
+
+    # # Failed Attempt #1:
+    # count = 0
+    # max_so_far = seq_seq[0][0]
+    # for k in range(len(seq_seq)):
+    #     if len(seq_seq[k]) == 0:
+    #         count += 1
+    #     else:
+    #         for i in range(len(seq_seq[k])):
+    #             if seq_seq[k][i] > max_so_far:
+    #                 max_so_far = seq_seq[k][i]
+    # if count == len(seq_seq):
+    #     return None
+    # else:
+    #     return max_so_far
 
 def run_test_largest_negative_number():
     """ Tests the    largest_negative_number    function. """
