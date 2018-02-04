@@ -45,7 +45,7 @@ def run_test_largest_number():
 
     # TO DO 2 (continued): Add your ADDITIONAL test(s) here:
     # Test 4:
-    test_sequence = [[1, 2, 3, 4], [1, 2, 3, 4, 5, 6, 7, 8], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [-3, 0, -4, 5, 7, 8, 1,
+    test_sequence = [[1, 2, 3, 4], [1, 2, 3, 4, 5, 6, 7, 8], [1, 2, 3, 4, 5, 6, 7, 8, 9], [-3, 0, -4, 5, 7, 8, 1,
                                                                                                9, -2, 3, 6, -6]]
     expected = 9
     answer = largest_number(test_sequence)
@@ -86,9 +86,41 @@ def largest_number(seq_seq):
     # DONE: 3. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     # ------------------------------------------------------------------
+    # first, the intuitive syntax. then the PEP 8. Look at none, and think about more efficient ways; they are
+    # implicitly steering you towards industry standards.
+    # ok, dope. so the below code woks and it reads really well.
+    comp_seq = [] # Hey! There is a more readadble version of your code below, and explanations above. 
+    for k in range(len(seq_seq)):
+        if seq_seq[k]:
+          comp_seq.append(seq_seq[k])
+
+    if not comp_seq:
+        return None
+
+    max_so_far = comp_seq[0][0]
+    for i in range(len(comp_seq)):
+        for j in range(len(comp_seq[i])):
+            if comp_seq[i][j] > max_so_far:
+                max_so_far = comp_seq[i][j]
+    return max_so_far
+    # successful and more readable:
+    # ref_seq_seq = []
+    # for k in range(len(seq_seq)):
+    #     if len(seq_seq[k]) != 0:
+    #         ref_seq_seq.append(seq_seq[k])
+    #
+    # if len(ref_seq_seq) == 0:
+    #     return None
+    #
+    # max_so_far = ref_seq_seq[0][0]
+    # for i in range(len(ref_seq_seq)):
+    #     for j in range(len(ref_seq_seq[i])):
+    #         if max_so_far < ref_seq_seq[i][j]:
+    #             max_so_far = ref_seq_seq[i][j]
+    # return max_so_far
+
     # how I assign max_so_far to the first value that isn't empty? Dammit, assigning to zero doesn't work.
     # https://docs.python.org/2/library/constants.html. Assigning to None is illegal?
-
     # Failed Attempt #2:
     # max_so_far = None
     # if not seq_seq:
@@ -104,8 +136,6 @@ def largest_number(seq_seq):
     #                 else:
     #                     max_so_far = seq_seq[k][i]
     # return max_so_far
-
-
     # # Failed Attempt #1:
     # count = 0
     # max_so_far = seq_seq[0][0]
