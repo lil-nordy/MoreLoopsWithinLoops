@@ -9,8 +9,8 @@ Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
 
 def main():
     """ Calls the other functions to test them. """
-    run_test_largest_number()
-    run_test_largest_negative_number()
+    # run_test_largest_number()
+    # run_test_largest_negative_number()
     run_test_first_is_elsewhere_too()
 
 
@@ -89,9 +89,9 @@ def largest_number(seq_seq):
     # first, the intuitive syntax. then the PEP 8. Look at none, and think about more efficient ways; they are
     # implicitly steering you towards industry standards.
     # ok, dope. so the below code woks and it reads really well.
-    comp_seq = [] # Hey! There is a more readadble version of your code below, and explanations above. 
+    comp_seq = [] # Hey! There is a more readadble version of your code below, and explanations above.
     for k in range(len(seq_seq)):
-        if seq_seq[k]:
+        if seq_seq[k]: # if not None
           comp_seq.append(seq_seq[k])
 
     if not comp_seq:
@@ -154,7 +154,7 @@ def largest_number(seq_seq):
 def run_test_largest_negative_number():
     """ Tests the    largest_negative_number    function. """
     # ------------------------------------------------------------------
-    # TODO: 4. Implement this TEST function.
+    # DONE: 4. Implement this TEST function.
     #   It TESTS the  largest_negative_number  function defined below.
     #
     #   Include enough tests to give you confidence that your solution
@@ -165,6 +165,23 @@ def run_test_largest_negative_number():
     print('Testing the   LARGEST_NEGATIVE_NUMBER   function:')
     print('-------------------------------------------------')
 
+    # Test 1:
+    test_sequence = [(30, -5, 8, -20),(100, -2.6, 88, -40, -5),(400, 500)]
+    expected = -2.6
+    result = largest_negative_number(test_sequence)
+    print('Expected and returned values are:', expected, result)
+
+    # Test 2:
+    test_sequence = [(200, 2, 20), (500, 400)]
+    expected = None
+    result = largest_negative_number(test_sequence)
+    print('Expected and returned values are:', expected, result)
+
+    # Test 3:
+    test_sequence = [(), (200, 2, 20), (500, 400), ()]
+    expected = None
+    result = largest_negative_number(test_sequence)
+    print('Expected and returned values are:', expected, result)
 
 def largest_negative_number(seq_seq):
     """
@@ -189,14 +206,89 @@ def largest_negative_number(seq_seq):
     where each subsequence contains only numbers.
     """
     # ------------------------------------------------------------------
-    # TODO: 5. Implement and test this function.
+    # DONE: 5. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     #
     # CHALLENGE: Try to solve this problem with no additional sequences
     #   being constructed (so the SPACE allowed is limited to the
     #   give sequence of sequences plus any non-list variables you want).
     # ------------------------------------------------------------------
+    # Challenge:
 
+    # # Failed attempt:
+    # # Initialize an empty largest negative so far as None. First, check to see if any of the sequences in the sequence
+    # # are empty. If not, append each sequence to a new
+    # # reference sequence. Then, check to see if each element of each sequence in the reference sequence is negative.
+    # # If it is, assign it as the largest negative so far. Finally, return it.
+    # # Why can't you compare None with an int? Is there a data Type that can be assigned as...a Ex Machina for this
+    # # instance?
+    # ref_seq = []
+    # for k in range(len(seq_seq)):
+    #     if len(seq_seq[k]) != 0:
+    #         ref_seq.append(seq_seq[k])
+    #
+    # if not ref_seq:
+    #     return None
+    #
+    # x = 0
+    # lnn = 0 # for now. It will be mutated.
+    # # get the first negative
+    # for k in range(len(ref_seq)):
+    #     for i in range(len(ref_seq[k])):
+    #         if ref_seq[k][i] < 0:
+    #             lnn = ref_seq[k][i]
+    #             break
+    #     print('are we here yet?' * k)
+    #     for i in range(len(ref_seq[k])):
+    #         if ref_seq[k][i] > lnn & ref_seq[k][i] < 0.0:
+    #             lnn = ref_seq[k][i]
+    # return lnn
+    # Another Failed Attempt
+    # supflu_seq = []
+    # max_neg = 0
+    # for k in range(len(seq_seq)):
+    #     if seq_seq[k]:
+    #         supflu_seq.append(seq_seq[k])
+    # if not supflu_seq:
+    #     return None
+    # else:
+    #     for k in range(len(supflu_seq)):
+    #         for i in range(len(supflu_seq[k])):
+    #             if supflu_seq[k][i] < 0:
+    #                 max_neg = supflu_seq[k][i]
+    # return max_neg
+    # Without optimization
+    new_seq = []
+    for k in range(len(seq_seq)):
+        for i in range(len(seq_seq[k])):
+            if len(seq_seq[k]) != 0 and seq_seq[k][i] < 0:
+                new_seq.append(seq_seq[k][i])
+    # largest_so_far = new_seq[0][0]
+    if not new_seq:
+        return None
+    else:
+        max_so_far = new_seq[0]
+        for k in range(len(new_seq)):
+            if new_seq[k] > max_so_far:
+                max_so_far = new_seq[k]
+        return max_so_far
+    # Failed Attempt at Optimization
+    # neg_there = False
+    # largest_neg = None
+    # for k in range(len(seq_seq)):
+    #     for j in range(len(seq_seq[k]):
+    #         if seq_seq[k][j] < 0:
+    #             if neg_there == False:
+    #                 lergest_neg = seq_seq[k][j]
+    #                 neg_there = True
+    #             else:
+    #                 if seq_seq[k][i] > largest_neg:
+    #                     largest_neg = seq_seq[k][i]
+    # return largest_neg
+    # Quick Reference for error solving
+    # for k in range(len(seq_seq)):
+    #     for i in range(len(seq_seq[k])):
+    #         print('hello')
 
 def run_test_first_is_elsewhere_too():
     """ Tests the    first_is_elsewhere_too    function. """
@@ -444,6 +536,44 @@ def first_is_elsewhere_too(seq_seq):
     #   in this problem, as doing so would defeat the goal of providing
     #   practice at loops within loops (within loops within ...)
     # ------------------------------------------------------------------
+    # Banned implementation: the in operator. I cannot figure this shit out.
+    if len(seq_seq[0]) == 0:
+        print('fucking empty first set')
+    else:
+        first_element = seq_seq[0][0]
+        for k in range(len(seq_seq)):
+            for i in range(len(seq_seq[k])):
+                if seq_seq[k][i] == first_element:
+                    return True
+                if type(seq_seq[k][i]) == list or type(seq_seq[k][i]) == str:
+                    for j in range(len(seq_seq[k][i])):
+                        if seq_seq[k][i][j] == first_element:
+                            return True
+    print(seq_seq)
+    print(first_element)
+
+
+    # Nope 2:
+    # print(seq_seq)
+    # if len(seq_seq[0]) == 0:
+    #     print('empty first?')
+    # else:
+    #     first_element = seq_seq[0][0]
+    #     for k in range(len(seq_seq) - 1):
+    #         if first_element in seq_seq[k + 1]:
+    #             return 'yes?'
+    #         else:
+    #             return 'nope?'
+    # Nope
+    # print(seq_seq)
+    # print(seq_seq[0])
+    # # if len(seq_seq[0]) == 0:
+    # #     return None
+    # if seq_seq[0][0] in seq_seq:
+    #     return True
+    # else:
+    #     return False
+
 
 
 # ----------------------------------------------------------------------

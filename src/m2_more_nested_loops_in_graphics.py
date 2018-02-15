@@ -54,7 +54,8 @@ def draw_upside_down_wall(rectangle, n, window):
     # ------------------------------------------------------------------
 
     #Methods:
-    # This tested to see where the first rectangle will be drawn, and where you should build up from...
+    # This tested to see where the firs
+    # t rectangle will be drawn, and where you should build up from...
     # rectangle.attach_to(window)
     # window.render()
     center_x = rectangle.get_center().x
