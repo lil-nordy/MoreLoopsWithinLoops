@@ -9,8 +9,8 @@ Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
 
 def main():
     """ Calls the other functions to test them. """
-    # run_test_largest_number()
-    # run_test_largest_negative_number()
+    run_test_largest_number()
+    run_test_largest_negative_number()
     run_test_first_is_elsewhere_too()
 
 
@@ -91,7 +91,7 @@ def largest_number(seq_seq):
     # ok, dope. so the below code woks and it reads really well.
     comp_seq = [] # Hey! There is a more readadble version of your code below, and explanations above.
     for k in range(len(seq_seq)):
-        if seq_seq[k]: # if not None
+        if seq_seq[k]:  # if not None
           comp_seq.append(seq_seq[k])
 
     if not comp_seq:
@@ -151,6 +151,7 @@ def largest_number(seq_seq):
     # else:
     #     return max_so_far
 
+
 def run_test_largest_negative_number():
     """ Tests the    largest_negative_number    function. """
     # ------------------------------------------------------------------
@@ -182,6 +183,7 @@ def run_test_largest_negative_number():
     expected = None
     result = largest_negative_number(test_sequence)
     print('Expected and returned values are:', expected, result)
+
 
 def largest_negative_number(seq_seq):
     """
@@ -261,7 +263,7 @@ def largest_negative_number(seq_seq):
     new_seq = []
     for k in range(len(seq_seq)):
         for i in range(len(seq_seq[k])):
-            if len(seq_seq[k]) != 0 and seq_seq[k][i] < 0:
+            if seq_seq[k] and seq_seq[k][i] < 0:  #len(seq_seq[k]) != 0
                 new_seq.append(seq_seq[k][i])
     # largest_so_far = new_seq[0][0]
     if not new_seq:
@@ -289,6 +291,7 @@ def largest_negative_number(seq_seq):
     # for k in range(len(seq_seq)):
     #     for i in range(len(seq_seq[k])):
     #         print('hello')
+
 
 def run_test_first_is_elsewhere_too():
     """ Tests the    first_is_elsewhere_too    function. """
@@ -367,14 +370,14 @@ def run_test_first_is_elsewhere_too():
 
     # Test 8:
     expected = True
-    answer = first_is_elsewhere_too([('a'), (), (), (), ('a')])
+    answer = first_is_elsewhere_too(['a', (), (), (), 'a'])
     print('Expected and actual are:', expected, answer)
     print(message[answer == expected])
     no_failures = no_failures and (answer == expected)
 
     # Test 9:
     expected = True
-    answer = first_is_elsewhere_too([('a'), (), (), (), ('a'), ()])
+    answer = first_is_elsewhere_too(['a', (), (), (), 'a', ()])
     print('Expected and actual are:', expected, answer)
     print(message[answer == expected])
     no_failures = no_failures and (answer == expected)
@@ -521,7 +524,7 @@ def first_is_elsewhere_too(seq_seq):
     and the given argument is a sequence of sequences.
     """
     # ------------------------------------------------------------------
-    # TODO: 6. Implement and test this function.
+    # DONE: 6. Implement and test this function.
     #          Some tests are already written for you (above).
     #
     # IMPLEMENTATION RESTRICTION:
@@ -536,21 +539,45 @@ def first_is_elsewhere_too(seq_seq):
     #   in this problem, as doing so would defeat the goal of providing
     #   practice at loops within loops (within loops within ...)
     # ------------------------------------------------------------------
-    # Banned implementation: the in operator. I cannot figure this shit out.
-    if len(seq_seq[0]) == 0:
-        print('fucking empty first set')
-    else:
-        first_element = seq_seq[0][0]
-        for k in range(len(seq_seq)):
-            for i in range(len(seq_seq[k])):
-                if seq_seq[k][i] == first_element:
+    # Banned implementations are in the comments below the functioning code... ie, the in operator. I cannot figure this
+    # shit
+    # out.
+    for k in range(1, len(seq_seq)):
+        for i in range(len(seq_seq[0])):
+            for j in range(len(seq_seq[k])):
+                if seq_seq[0][i] == seq_seq[k][j]:
                     return True
-                if type(seq_seq[k][i]) == list or type(seq_seq[k][i]) == str:
-                    for j in range(len(seq_seq[k][i])):
-                        if seq_seq[k][i][j] == first_element:
-                            return True
-    print(seq_seq)
-    print(first_element)
+    return False
+
+
+    # Having fun:
+    # loops_not_found = 0
+    # for k in range(1, len(seq_seq)):
+    #     for i in range(len(seq_seq[0])):
+    #         for j in range(len(seq_seq[k])):
+    #             if seq_seq[0][i] == seq_seq[k][j]:
+    #                 return True
+    #             else:
+    #                 loops_not_found += 1
+    # return loops_not_found
+    # Failed Attempt:
+    # print(seq_seq)
+    # if not seq_seq[0]:
+    #     return False
+    # else:
+    #     if not seq_seq[0][0]:
+    #         return False
+    #     else:
+    #         first_element = seq_seq[0][0]
+    #         for k in range(1, len(seq_seq) - 1):
+    #             for i in range(len(seq_seq[k])):
+    #                 if seq_seq[k][i] == first_element:
+    #                     return True
+    #                 if type(seq_seq[k][i]) == list or type(seq_seq[k][i]) == str:
+    #                     for j in range(len(seq_seq[k][i])):
+    #                         if seq_seq[k][i][j] == first_element:
+    #                             return True
+
 
 
     # Nope 2:
