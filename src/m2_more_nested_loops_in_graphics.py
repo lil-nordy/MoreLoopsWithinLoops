@@ -53,27 +53,50 @@ def draw_upside_down_wall(rectangle, n, window):
     #     Some tests are already written for you (above).
     # ------------------------------------------------------------------
 
-    #Methods:
-    # This tested to see where the firs
-    # t rectangle will be drawn, and where you should build up from...
-    # rectangle.attach_to(window)
-    # window.render()
-    center_x = rectangle.get_center().x
-    center_y = rectangle.get_center().y
+    # key insight; don't build from the middle out! Start from the leftmost rectangle. Move the rectangle to the proper
+    # row, build across the columns, then mutate to the next proper spot. Nested loops + reset statements!
     height = rectangle.get_height()
     width = rectangle.get_width()
-    # corner1 is lower right, corner2 is upper left.
-    corner1 = rg.Point(center_x + (width / 2), center_y + (height / 2))
-    corner2 = rg.Point(center_x - (width / 2), center_y - (height / 2))
-
+    y1 = rectangle.get_lower_left_corner().y
+    y2 = rectangle.get_upper_right_corner().y
     for k in range(n):
-        for i in range(k):
-            draw_rectangle = rg.Rectangle(rg.Point(corner1.x + i * (width), corner1.y - k * (width)),
-                                          rg.Point(corner2.x - i * (width), corner2.y - k * (width)))
-            draw_rectangle.attach_to(window)
+        x1 = rectangle.get_lower_left_corner().x - k * (width / 2)
+        x2 = rectangle.get_upper_right_corner().x - k * (width / 2)
+        for i in range(k + 1):
+            rectangle_drawn = rg.Rectangle(rg.Point(x1, y1), rg.Point(x2, y2))
+            rectangle_drawn.attach_to(window)
+            x1 += width
+            x2 += width
+        y1 -= height
+        y2 -= height
     window.render()
+# Methods:
+# This tested to see where the firs
+# t rectangle will be drawn, and where you should build up from...
+# rectangle.attach_to(window)
+# window.render()
+
+# Failed attempts:
+# center_x = rectangle.get_center().x
+# center_y = rectangle.get_center().y
+# height = rectangle.get_height()
+# width = rectangle.get_width()
+# # corner1 is lower right, corner2 is upper left.
+# corner1 = rg.Point(center_x + (width / 2), center_y + (height / 2))
+# corner2 = rg.Point(center_x - (width / 2), center_y - (height / 2))
+#
+# for k in range(n):
+#     for i in range(k):
+#         draw_rectangle = rg.Rectangle(rg.Point(corner1.x + i * (width), corner1.y - k * (width)),
+#                                       rg.Point(corner2.x - i * (width), corner2.y - k * (width)))
+#         draw_rectangle.attach_to(window)
+# window.render()
+
+
+
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # ----------------------------------------------------------------------
+
 main()
